@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://csbludilbyrq7"]
+
+[ext_resource type="Texture2D" uid="uid://bt3pl31bn44em" path="res://citrus_orchard_road_puresky_4k.hdr" id="1_ig7tw"]
+[ext_resource type="Material" uid="uid://cicucngkbfy3a" path="res://shadertop.tres" id="2_0xm2m"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0xm2m"]
+panorama = ExtResource("1_ig7tw")
+energy_multiplier = 0.3
+
+[sub_resource type="Sky" id="Sky_ig7tw"]
+sky_material = SubResource("PanoramaSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_0xm2m"]
+background_mode = 2
+sky = SubResource("Sky_ig7tw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_1bvp3"]
+material = ExtResource("2_0xm2m")
+size = Vector3(500, 0, 500)
+subdivide_width = 500
+subdivide_depth = 500
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0xm2m")
+
+[node name="oceantop" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1753003, 0)
+mesh = SubResource("BoxMesh_1bvp3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.9325823, 0, 0.36095735, 0, 1, 0, -0.36095735, 0, -0.9325823, 0, 4.573036, 0)
