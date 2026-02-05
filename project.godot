@@ -14,3 +14,7 @@ config/name="WaterSimTest"
 run/main_scene="uid://csbludilbyrq7"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/tessarakkt.oceanfft/plugin.cfg")

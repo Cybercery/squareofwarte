@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://csbludilbyrq7"]
+[gd_scene load_steps=14 format=3 uid="uid://csbludilbyrq7"]
 
 [ext_resource type="Texture2D" uid="uid://bt3pl31bn44em" path="res://citrus_orchard_road_puresky_4k.hdr" id="1_ig7tw"]
 [ext_resource type="Material" uid="uid://cicucngkbfy3a" path="res://shadertop.tres" id="2_0xm2m"]
+[ext_resource type="Material" uid="uid://cmyo0unntq078" path="res://addons/tessarakkt.oceanfft/Ocean.tres" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://b450bm6b1npjb" path="res://addons/tessarakkt.oceanfft/components/OceanEnvironment.gd" id="3_lquwl"]
+[ext_resource type="Script" uid="uid://cx3twtm5gessr" path="res://addons/tessarakkt.oceanfft/components/Ocean3D.gd" id="5_7mycd"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0xm2m"]
 panorama = ExtResource("1_ig7tw")
@@ -22,6 +25,16 @@ size = Vector3(500, 0, 500)
 subdivide_width = 500
 subdivide_depth = 500
 
+[sub_resource type="Environment" id="Environment_lquwl"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7mycd"]
+
+[sub_resource type="Compositor" id="Compositor_272bh"]
+
+[sub_resource type="Resource" id="Resource_272bh"]
+script = ExtResource("5_7mycd")
+metadata/_custom_type_script = "uid://cx3twtm5gessr"
+
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -33,7 +46,18 @@ environment = SubResource("Environment_0xm2m")
 
 [node name="oceantop" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1753003, 0)
+visible = false
 mesh = SubResource("BoxMesh_1bvp3")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.9325823, 0, 0.36095735, 0, 1, 0, -0.36095735, 0, -0.9325823, 0, 4.573036, 0)
+
+[node name="OceanEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("sun_light", "sky_light")]
+environment = SubResource("Environment_lquwl")
+camera_attributes = SubResource("CameraAttributesPractical_7mycd")
+compositor = SubResource("Compositor_272bh")
+script = ExtResource("3_lquwl")
+ocean = SubResource("Resource_272bh")
+sun_light = NodePath("../DirectionalLight3D")
+sky_light = NodePath("../DirectionalLight3D")
+metadata/_custom_type_script = "uid://b450bm6b1npjb"
